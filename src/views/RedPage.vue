@@ -1,35 +1,23 @@
 <template>
-  <div>
-    <light-component color="red active" />
-    <light-component color="yellow inactive" />
-    <light-component color="green inactive" />
-    <counter-component>00:{{this.seconds}}</counter-component>
-  </div>
+  <traffic-light seconds="10" active="red" />
 </template>
 <script>
-  import lightComponent from '@/components/LightComponent';
-  import counterComponent from '@/components/Counter'
+  import trafficLight from '@/components/TrafficLight'
   export default{
     data:()=>({
-      setTimeout: null,
-      counterTime: null,
-      seconds: 10
+      setTimeout: null
     }),
     components: {
-      lightComponent, counterComponent
+      trafficLight
     },
     mounted(){
       this.setTimeout = setTimeout(() => {
         this.$router.push('/yellow')
       }, 10000)
-      this.counterTime = setInterval(() =>{
-          return this.seconds--
-      }, 1000)
     },
     beforeDestroy(){
-      if (this.setTimeout && this.counterTime){
+      if (this.setTimeout){
         clearTimeout(this.setTimeout);
-        clearInterval(this.counterTime)
       }
     }
   }

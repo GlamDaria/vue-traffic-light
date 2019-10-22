@@ -1,22 +1,14 @@
 <template>
-  <div>
-    <light-component color="red inactive" />
-    <light-component color="yellow active" />
-    <light-component color="green inactive" />
-    <counter-component>00:{{this.seconds}}</counter-component>
-  </div>
+  <traffic-light seconds="3" active="yellow" />
 </template>
 <script>
-  import lightComponent from '@/components/LightComponent';
-  import counterComponent from '@/components/Counter'
+  import trafficLight from '@/components/TrafficLight'
   export default{
     data:()=>({
-      setTimeout: null,
-      counterTime: null,
-      seconds: 3
+      setTimeout: null
     }),
     components: {
-      lightComponent, counterComponent
+      trafficLight
     },
     beforeRouteEnter(to, from, next) {
       next(el => {
@@ -32,14 +24,10 @@
           this.$router.push('/green')
         }
       }, 3000)
-      this.counterTime = setInterval(() =>{
-          return this.seconds--
-      }, 1000)
     },
     beforeDestroy(){
-      if (this.setTimeout && this.counterTime){
+      if (this.setTimeout){
         clearTimeout(this.setTimeout);
-        clearInterval(this.counterTime)
       }
     }
   }
