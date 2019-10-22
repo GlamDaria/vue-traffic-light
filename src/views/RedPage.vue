@@ -1,30 +1,35 @@
 <template>
-  <div id="home">
-    <light-component color="red inactive" />
+  <div>
+    <light-component color="red active" />
     <light-component color="yellow inactive" />
     <light-component color="green inactive" />
-    <counter-component>00:00</counter-component>
+    <counter-component>00:{{this.seconds}}</counter-component>
   </div>
 </template>
 <script>
   import lightComponent from '@/components/LightComponent';
   import counterComponent from '@/components/Counter'
   export default{
-    data:() => ({
-      setTimeout: null
+    data:()=>({
+      setTimeout: null,
+      counterTime: null,
+      seconds: 10
     }),
     components: {
       lightComponent, counterComponent
     },
     mounted(){
       this.setTimeout = setTimeout(() => {
-        this.$router.push('/red')
+        this.$router.push('/yellow')
+      }, 10000)
+      this.counterTime = setInterval(() =>{
+          return this.seconds--
       }, 1000)
     },
     beforeDestroy(){
-      if (this.setTimeout){
-        console.log('beforeDestroy timeout')
-        clearTimeout(setTimeout)
+      if (this.setTimeout && this.counterTime){
+        clearTimeout(this.setTimeout);
+        clearInterval(this.counterTime)
       }
     }
   }
