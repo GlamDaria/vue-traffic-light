@@ -1,5 +1,5 @@
 <template>
-  <traffic-light seconds="3" active="yellow" />
+  <traffic-light seconds="3" active="yellow" blinking="yellow" />
 </template>
 <script>
   import trafficLight from '@/components/TrafficLight'

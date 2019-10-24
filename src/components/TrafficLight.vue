@@ -1,8 +1,8 @@
 <template>
   <div id="traffic-light">
-    <light-component color="red" :isActive="active==='red'" />
-    <light-component color="yellow" :isActive="active==='yellow'" />
-    <light-component color="green" :isActive="active==='green'" />
+    <light-component color="red" :isActive="active==='red'" :blinking="this.seconds<=3 && blinking==='red'" />
+    <light-component color="yellow" :isActive="active==='yellow'" :blinking="this.seconds<=3 && blinking==='yellow'" />
+    <light-component color="green" :isActive="active==='green'" :blinking="this.seconds<=3 && blinking==='green'" />
     <counter-component>00:{{this.seconds}}</counter-component>
   </div>
 </template>
@@ -10,7 +10,7 @@
   import lightComponent from '@/components/LightComponent'
   import counterComponent from '@/components/Counter'
   export default{
-    props:['seconds', 'active'],
+    props:['seconds', 'active', 'blinking'],
     data:() => ({
       counterTime: null
     }),

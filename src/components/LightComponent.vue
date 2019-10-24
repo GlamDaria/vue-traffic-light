@@ -1,10 +1,10 @@
 <template>
-  <div id="light" :class="[color, {inactive: !isActive}]">
+  <div id="light" :class="[color, {inactive: !isActive}, {blink: blinking}]">
   </div>
 </template>
 <script>
   export default{
-    props:['color', 'isActive']
+    props:['color', 'isActive', 'blinking']
   }
 </script>
 <style scoped>
@@ -28,4 +28,20 @@
   .active{
     opacity: 1;
   }
+  .blink{
+    animation: 3s anim infinite;
+  }
+  @keyframes anim{
+    0%{opacity: 0}
+    10%{opacity: .1}
+    20%{opacity: 1}
+    30%{opacity: .1}
+    40%{opacity: 1}
+    50%{opacity: .1}
+    60%{opacity: 1}
+    70%{opacity: .1}
+    80%{opacity: 1}
+    90%{opacity: .1}
+    100%{opacity: 1}
+}
 </style>
