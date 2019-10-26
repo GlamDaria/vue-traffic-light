@@ -1,5 +1,5 @@
 <template>
-  <traffic-light seconds="3" active="yellow" blinking="yellow" />
+  <traffic-light @startCounting="startCounter" @stopCounting="dischargeCounting" seconds="3" active="yellow" blinking="yellow" />
 </template>
 <script>
   import trafficLight from '@/components/TrafficLight'
@@ -7,6 +7,27 @@
     data:()=>({
       setTimeout: null
     }),
+    methods:{
+      dischargeCounting(){
+        clearTimeout(this.setTimeout)
+
+      },
+      calcTime(){
+        return (localStorage.savedTime) ? localStorage.savedTime * 1000 : 3000
+      },
+      startCounter(){
+        this.setTimeout = setTimeout(() =>{
+          if(this.prevRoute.path === '/green'){
+            if (localStorage.savedTime) localStorage.removeItem('savedTime');
+            this.$router.push('/red')
+          }
+          else{
+            if (localStorage.savedTime) localStorage.removeItem('savedTime');
+            this.$router.push('/green')
+          }
+        }, this.calcTime());
+      }
+    },
     components: {
       trafficLight
     },
@@ -16,14 +37,7 @@
       })
     },
     mounted(){
-      this.setTimeout = setTimeout(() => {
-        if(this.prevRoute.path === '/green'){
-          this.$router.push('/red')
-        }
-        else{
-          this.$router.push('/green')
-        }
-      }, 3000)
+      this.startCounter();
     },
     beforeDestroy(){
       if (this.setTimeout){
