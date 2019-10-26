@@ -2,35 +2,15 @@
   <traffic-light @startCounting="startCounter" @stopCounting="dischargeCounting" seconds="10" active="red" blinking="red" />
 </template>
 <script>
-  import trafficLight from '@/components/TrafficLight'
+  import PageMixins from '@/mixins/PageMixins.js'
   export default{
     data:()=>({
       setTimeout: null
     }),
+    mixins:[PageMixins],
     methods:{
-      dischargeCounting(){
-        clearTimeout(this.setTimeout)
-
-      },
       calcTime(){
         return (localStorage.savedTime) ? localStorage.savedTime * 1000 : 10000
-      },
-      startCounter(){
-        this.setTimeout = setTimeout(() =>{
-          if (localStorage.savedTime) localStorage.removeItem('savedTime');
-          this.$router.push('yellow')
-        }, this.calcTime())
-      }
-    },
-    components: {
-      trafficLight
-    },
-    mounted(){
-      this.startCounter()
-    },
-    beforeDestroy(){
-      if (this.setTimeout){
-        clearTimeout(this.setTimeout);
       }
     }
   }

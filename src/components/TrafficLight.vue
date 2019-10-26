@@ -3,7 +3,7 @@
     <light-component color="red" :isActive="active==='red'" :blinking="this.seconds<=3 && blinking==='red'" />
     <light-component color="yellow" :isActive="active==='yellow'" :blinking="this.seconds<=3 && blinking==='yellow'" />
     <light-component color="green" :isActive="active==='green'" :blinking="this.seconds<=3 && blinking==='green'" />
-    <counter-component>00:{{this.seconds}}</counter-component>
+    <counter-component>00:{{this.seconds | SecondsFilter}}</counter-component>
     <pause-btn @stopCounting="dischargeCounting" @startCounting="restart" :time="this.seconds" />
   </div>
 </template>
